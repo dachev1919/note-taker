@@ -11,7 +11,7 @@ interface INoteDetailsProps {
 }
 
 const NoteDetails: FC<INoteDetailsProps> = ({note}) => {
-  const [_, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
+  const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 
   const onDeleteHandler = () => {
     setNotes(prevState => {

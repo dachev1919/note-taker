@@ -6,7 +6,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { v4 as uuidV4 } from 'uuid';
 
 const NewNote: FC = () => {
-	const [_, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
+	const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 	const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
 
 	function onCreateNote({ tags, ...data }: NoteData) {

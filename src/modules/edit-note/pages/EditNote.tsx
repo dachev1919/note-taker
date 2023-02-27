@@ -9,7 +9,7 @@ interface IEditNoteProps {
 }
 
 const EditNote: FC<IEditNoteProps> = ({ note }) => {
-	const [_, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
+	const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 	const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
 
 	const onUpdateNote = (id: string, { tags, ...data }: NoteData) => {
