@@ -9,6 +9,8 @@ const NewNote: FC = () => {
 	const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 	const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
 
+	notes.reverse().reverse();
+
 	function onCreateNote({ tags, ...data }: NoteData) {
 		setNotes(prevNotes => {
 			return [

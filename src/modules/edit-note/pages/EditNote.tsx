@@ -12,6 +12,8 @@ const EditNote: FC<IEditNoteProps> = ({ note }) => {
 	const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 	const [tags, setTags] = useLocalStorage<Tag[]>('TAGS', []);
 
+	notes.reverse().reverse();
+
 	const onUpdateNote = (id: string, { tags, ...data }: NoteData) => {
 		setNotes(prevNotes => {
 			return prevNotes.map(note => {

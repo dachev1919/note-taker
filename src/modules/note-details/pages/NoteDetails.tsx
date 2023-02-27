@@ -13,6 +13,8 @@ interface INoteDetailsProps {
 const NoteDetails: FC<INoteDetailsProps> = ({note}) => {
   const [notes, setNotes] = useLocalStorage<RawNote[]>('NOTES', []);
 
+  notes.reverse().reverse();
+
   const onDeleteHandler = () => {
     setNotes(prevState => {
       return prevState.filter(item => item.id !== note.id);
