@@ -4,20 +4,27 @@ import CreatableReactSelect from 'react-select/creatable';
 import Link from 'next/link';
 import { NoteData, Tag } from '@/@types/notes.interface';
 import { v4 as uuidV4 } from 'uuid';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
-interface INoteFormProps {
+interface INoteFormProps extends Partial<NoteData> {
 	onSubmit: (data: NoteData) => void;
 	onAddTag: (tag: Tag) => void;
 	availableTags: Tag[];
 	inputId: string;
 }
 
-const NoteForm: FC<INoteFormProps> = ({ onSubmit, onAddTag, availableTags, inputId }) => {
+const NoteForm: FC<INoteFormProps> = ({
+	title = '',
+	markdown = '',
+	onSubmit,
+	onAddTag,
+	availableTags,
+	inputId
+}) => {
 	const titleRef = useRef<HTMLInputElement>(null);
 	const markdownRef = useRef<HTMLTextAreaElement>(null);
 	const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-	const router = useRouter()
+	const router = useRouter();
 
 	const submitHandler = (e: FormEvent) => {
 		e.preventDefault();
@@ -25,9 +32,9 @@ const NoteForm: FC<INoteFormProps> = ({ onSubmit, onAddTag, availableTags, input
 		onSubmit({
 			title: titleRef.current!.value,
 			markdown: markdownRef.current!.value,
-			tags: selectedTags,
+			tags: selectedTags
 		});
-		router.push('/')
+		router.push('/');
 	};
 
 	return (
@@ -37,7 +44,7 @@ const NoteForm: FC<INoteFormProps> = ({ onSubmit, onAddTag, availableTags, input
 					<Col>
 						<Form.Group controlId='title'>
 							<Form.Label>Title</Form.Label>
-							<Form.Control ref={titleRef} required />
+							<Form.Control ref={titleRef} required defaultValue={title} />
 						</Form.Group>
 					</Col>
 					<Col>
@@ -52,7 +59,7 @@ const NoteForm: FC<INoteFormProps> = ({ onSubmit, onAddTag, availableTags, input
 									setSelectedTags(prevState => [...prevState, newTag]);
 								}}
 								options={availableTags.map(tag => {
-									return {label: tag.label, value: tag.id}
+									return { label: tag.label, value: tag.id };
 								})}
 								value={selectedTags.map(tag => {
 									return { label: tag.label, value: tag.id };
@@ -71,10 +78,16 @@ const NoteForm: FC<INoteFormProps> = ({ onSubmit, onAddTag, availableTags, input
 				</Row>
 				<Form.Group controlId='markdown'>
 					<Form.Label>Body</Form.Label>
-					<Form.Control ref={markdownRef} required as='textarea' rows={15} />
+					<Form.Control
+						ref={markdownRef}
+						required
+						as='textarea'
+						rows={15}
+						defaultValue={markdown}
+					/>
 				</Form.Group>
 				<Stack direction='horizontal' gap={2} className='justify-content-end'>
-					<Link href='/'>
+					<Link href='..'>
 						<Button type='button' variant='outline-secondary'>
 							Cancel
 						</Button>

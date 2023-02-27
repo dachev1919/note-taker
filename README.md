@@ -1,3 +1,3 @@
-# Getting Started with Create React App
+# For the practice of Next.js and in general the repetition of the material
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[LINK](https://dachev1919.github.io/note-taker/).
